@@ -1,0 +1,19 @@
+{
+  "name": "phizzl/phpshellcommand",
+  "version": "0.0.1",
+  "dist": {
+    "url": "https://github.com/phizzl/phpshellcommand/archive/master.zip",
+    "type": "zip"
+  },
+  "authors": [
+    {
+      "name": "Phillip Schleicher",
+      "email": "the@phizzl.de",
+      "homepage": "http://phizzl.de",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {"Phizzl\\PhpShellCommand\\": "src/"}
+  }
+}
