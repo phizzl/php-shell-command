@@ -16,6 +16,8 @@ class ShellCommand
 
     const STATUS_TIMEOUT_REACHED = 'Timeout reached';
 
+    const STATUS_NOT_EXECUTED = 'Not executed';
+
     /**
      * @var string
      */
@@ -65,7 +67,7 @@ class ShellCommand
             0           => array(),
             1           => array(),
             2           => -1,
-            'status'    => self::STATUS_OK,
+            'status'    => self::STATUS_NOT_EXECUTED,
             'exec_time' => .0
         );
 
@@ -89,7 +91,7 @@ class ShellCommand
             $returnValue['exec_time']   = $timeout->end();
             $returnValue['status']      = ( $timeout->isTimeoutHit() )
                 ? self::STATUS_TIMEOUT_REACHED
-                : $returnValue['status'];
+                : self::STATUS_OK;
         }
 
         return $returnValue;
