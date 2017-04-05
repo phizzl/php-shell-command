@@ -5,6 +5,7 @@
     "url": "https://github.com/phizzl/phpshellcommand/archive/master.zip",
     "type": "zip"
   },
+  "licence": "GPL-3.0",
   "authors": [
     {
       "name": "Phillip Schleicher",
