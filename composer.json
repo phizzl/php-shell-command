@@ -1,10 +1,6 @@
 {
   "name": "phizzl/phpshellcommand",
-  "version": "0.0.1",
-  "dist": {
-    "url": "https://github.com/phizzl/phpshellcommand/archive/master.zip",
-    "type": "zip"
-  },
+  "version": "1.0.0",
   "licence": "GPL-3.0",
   "authors": [
     {
@@ -16,5 +12,6 @@
   ],
   "autoload": {
     "psr-4": {"Phizzl\\PhpShellCommand\\": "src/"}
-  }
+  },
+  "minimum-stability": "dev"
 }
