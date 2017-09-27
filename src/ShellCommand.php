@@ -39,7 +39,7 @@ class ShellCommand
     protected $descriptorspec = array(
         0 => array("pipe", "r"),
         1 => array("pipe", "w"),
-        2 => array("pipe", "r")
+        2 => array("pipe", "w")
     );
 
     /**
@@ -59,7 +59,7 @@ class ShellCommand
 
     /**
      * @param int $outputType
-     * @return array(0=stdin,1=stderr,2=exitCode)
+     * @return ShellCommandResult
      */
     public function run($outputType = self::OUTPUT_TYPE_ARRAY, ExecTimeout $runTimeout = null)
     {
@@ -80,21 +80,23 @@ class ShellCommand
         $process = proc_open($this->command, $this->descriptorspec, $pipes, $this->cwd);
 
         if (is_resource($process)) {
-            $returnValue[0] = $this->readFromPipe($pipes[1], $outputType, $timeout);
-            $returnValue[1] = $this->readFromPipe($pipes[2], $outputType, $timeout);
+            $stdOut = $this->readFromPipe($pipes[1], $outputType, $timeout);
+            $stdErr = $this->readFromPipe($pipes[2], $outputType, $timeout);
 
             fclose($pipes[0]);
             fclose($pipes[1]);
             fclose($pipes[2]);
 
-            $returnValue[2]             = proc_close($process);
-            $returnValue['exec_time']   = $timeout->end();
-            $returnValue['status']      = ( $timeout->isTimeoutHit() )
+            $exitCode = proc_close($process);
+            $execTime = $timeout->end();
+            $status = ( $timeout->isTimeoutHit() )
                 ? self::STATUS_TIMEOUT_REACHED
                 : self::STATUS_OK;
+
+            $result = new ShellCommandResult($status, $execTime, $exitCode, $stdOut, $stdErr);
         }
 
-        return $returnValue;
+        return isset($result) ? $result : new ShellCommandResult(self::STATUS_NOT_EXECUTED, 0, -1, [], []);
     }
 
     /**
