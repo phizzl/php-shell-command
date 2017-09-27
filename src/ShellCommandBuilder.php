@@ -31,6 +31,11 @@ class ShellCommandBuilder
     private $readFromStdIn;
 
     /**
+     * @var bool
+     */
+    private $runInBackground;
+
+    /**
      * ShellCommandBuilder constructor.
      * @param string $bin
      */
@@ -41,6 +46,7 @@ class ShellCommandBuilder
         $this->stdOutRedirect = '';
         $this->stdErrRedirect = '';
         $this->readFromStdIn = '';
+        $this->runInBackground = false;
     }
 
     /**
@@ -101,6 +107,15 @@ class ShellCommandBuilder
     }
 
     /**
+     * @return $this
+     */
+    public function runInBackground()
+    {
+        $this->runInBackground = true;
+        return $this;
+    }
+
+    /**
      * @return ShellCommand
      */
     public function buildCommand()
@@ -117,6 +132,10 @@ class ShellCommandBuilder
 
         if($this->stdErrRedirect){
             $cmd .= " 2>{$this->stdErrRedirect}";
+        }
+
+        if($this->runInBackground){
+            $cmd .= " &";
         }
 
         return new ShellCommand($cmd);
