@@ -21,12 +21,12 @@ class ShellCommandResult
     private $exitCode;
 
     /**
-     * @var array
+     * @var string
      */
     private $output;
 
     /**
-     * @var array
+     * @var string
      */
     private $error;
 
@@ -35,8 +35,8 @@ class ShellCommandResult
      * @param string $status
      * @param float $execTime
      * @param int $exitCode
-     * @param array $output
-     * @param array $error
+     * @param string $output
+     * @param string $error
      */
     public function __construct($status, $execTime, $exitCode, $output, $error)
     {
@@ -72,7 +72,7 @@ class ShellCommandResult
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getOutput()
     {
@@ -80,7 +80,7 @@ class ShellCommandResult
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getError()
     {
