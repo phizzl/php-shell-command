@@ -58,26 +58,26 @@ class ShellCommand
     }
 
     /**
+     * @return string
+     */
+    public function getCommand()
+    {
+        return $this->command;
+    }
+
+    /**
      * @param int $outputType
      * @return ShellCommandResult
      */
     public function run($outputType = self::OUTPUT_TYPE_ARRAY, ExecTimeout $runTimeout = null)
     {
-        $returnValue = array(
-            0           => array(),
-            1           => array(),
-            2           => -1,
-            'status'    => self::STATUS_NOT_EXECUTED,
-            'exec_time' => .0
-        );
-
         $timeout    = ( $runTimeout === null )
             ? $this->timeout
             : $runTimeout;
 
         $timeout->start();
 
-        $process = proc_open($this->command, $this->descriptorspec, $pipes, $this->cwd);
+        $process = proc_open($this->getCommand(), $this->descriptorspec, $pipes, $this->cwd);
 
         if (is_resource($process)) {
             $stdOut = $this->readFromPipe($pipes[1], $outputType, $timeout);

@@ -116,9 +116,9 @@ class ShellCommandBuilder
     }
 
     /**
-     * @return ShellCommand
+     * @return string
      */
-    public function buildCommand()
+    public function buildCommandString()
     {
         $cmd = "{$this->bin} " . implode(" ", $this->argsAndOpts);
 
@@ -138,6 +138,14 @@ class ShellCommandBuilder
             $cmd .= " &";
         }
 
-        return new ShellCommand($cmd);
+        return $cmd;
+    }
+
+    /**
+     * @return ShellCommand
+     */
+    public function buildCommand()
+    {
+        return new ShellCommand($this->buildCommandString());
     }
 }
