@@ -5,6 +5,10 @@ namespace Phizzl\PhpShellCommand;
 
 class ShellCommandBuilder
 {
+    const OPTION_ASSIGN_SPACE = " ";
+
+    const OPTION_ASSIGN_EQUALS = "=";
+
     /**
      * @var string
      */
@@ -62,17 +66,13 @@ class ShellCommandBuilder
     /**
      * @param string $name
      * @param string $value
-     * @param bool $useEqualsAssignment
+     * @param string $optionAssignStr
      * @return $this
      */
-    public function addOption($name, $value, $useEqualsAssignment = false)
+    public function addOption($name, $value, $optionAssignStr = self::OPTION_ASSIGN_EQUALS)
     {
-        if($useEqualsAssignment){
-            $this->argsAndOpts[] = "{$name}=" . escapeshellarg($value);
-        }
-        else{
-            $this->argsAndOpts[] = "{$name} " . escapeshellarg($value);
-        }
+        $this->argsAndOpts[] = $name . $optionAssignStr . escapeshellarg($value);
+
         return $this;
     }
 
