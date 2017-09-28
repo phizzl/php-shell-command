@@ -69,9 +69,9 @@ class ShellCommandBuilder
      * @param string $optionAssignStr
      * @return $this
      */
-    public function addOption($name, $value, $optionAssignStr = self::OPTION_ASSIGN_EQUALS)
+    public function addOption($name, $value = '', $optionAssignStr = self::OPTION_ASSIGN_EQUALS)
     {
-        $this->argsAndOpts[] = $name . $optionAssignStr . escapeshellarg($value);
+        $this->argsAndOpts[] = $name . ( strlen($value) ? $optionAssignStr . escapeshellarg($value) : '' );
 
         return $this;
     }
