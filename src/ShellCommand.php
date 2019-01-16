@@ -37,7 +37,7 @@ class ShellCommand
     public function __construct($command, $cwd = null)
     {
         $this->command  = $command;
-        $this->cwd      = $cwd;
+        $this->cwd      = $cwd === null ? getcwd() : $cwd;
     }
 
     /**

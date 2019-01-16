@@ -1,6 +1,5 @@
 {
   "name": "phizzl/php-shell-command",
-  "licence": "GPL-3.0",
   "authors": [
     {
       "name": "Phillip Schleicher",
@@ -12,5 +11,5 @@
   "autoload": {
     "psr-4": {"Phizzl\\PhpShellCommand\\": "src/"}
   },
-  "minimum-stability": "dev"
+  "minimum-stability": "stable"
 }
